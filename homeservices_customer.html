@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FixIt UAE — Home Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#f5f4f0;--bg2:#fff;--bg3:#eeede8;--bg4:#e5e3dc;
+  --text:#131210;--muted:#6b6960;--faint:#b0ada4;
+  --border:#e2e0d8;--border2:#ccc9bf;
+  --orange:#ea5c1e;--orange-l:#fff4ef;--orange-d:#c44a14;
+  --green:#16a34a;--green-l:#f0fdf4;
+  --blue:#1d4ed8;--blue-l:#eff6ff;
+  --amber:#d97706;--amber-l:#fffbeb;
+  --red:#dc2626;--red-l:#fef2f2;
+  --purple:#7c3aed;--purple-l:#f5f3ff;
+  --sh:0 1px 4px rgba(0,0,0,0.06),0 2px 10px rgba(0,0,0,0.04);
+  --sh-md:0 4px 20px rgba(0,0,0,0.09);
+  --sh-lg:0 10px 40px rgba(0,0,0,0.13);
+  --r:12px;--r-lg:18px;--r-xl:24px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6;min-height:100vh;}
+.app{max-width:440px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;}
+
+/* HEADER */
+.hdr{background:var(--orange);padding:0;position:sticky;top:0;z-index:100;}
+.hdr-top{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;}
+.hdr-brand{display:flex;align-items:center;gap:9px;}
+.hdr-logo{width:32px;height:32px;background:rgba(255,255,255,0.2);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.hdr-name{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:white;}
+.hdr-loc{font-size:11px;color:rgba(255,255,255,0.75);margin-top:0px;}
+.hdr-icons{display:flex;gap:8px;}
+.hdr-icon{width:36px;height:36px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;position:relative;}
+.hdr-badge{position:absolute;top:-2px;right:-2px;width:16px;height:16px;background:#ef4444;border-radius:50%;font-size:9px;font-weight:800;color:white;display:flex;align-items:center;justify-content:center;}
+
+/* SEARCH */
+.search-wrap{padding:0 16px 14px;background:var(--orange);}
+.search-box{display:flex;align-items:center;gap:10px;background:white;border-radius:12px;padding:11px 14px;}
+.search-ico{font-size:18px;color:var(--muted);}
+.search-input{flex:1;border:none;outline:none;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--text);}
+.search-input::placeholder{color:var(--faint);}
+
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:var(--bg2);border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom,6px);}
+.bni{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 4px 6px;cursor:pointer;color:var(--faint);font-size:10px;font-weight:600;gap:3px;letter-spacing:0.03em;text-transform:uppercase;transition:color 0.2s;}
+.bni.on{color:var(--orange);}
+.bni-ico{font-size:21px;line-height:1;}
+.bni-wrap{position:relative;}
+.bni-dot{position:absolute;top:-3px;right:-3px;width:8px;height:8px;border-radius:50%;background:var(--red);}
+
+/* PAGES */
+.page{display:none;padding:0 0 88px;animation:fadeIn 0.22s ease;}
+.page.on{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* HOME HERO */
+.hero{padding:22px 16px 18px;background:var(--bg2);margin-bottom:8px;}
+.hero-greeting{font-size:12px;color:var(--muted);font-weight:500;margin-bottom:3px;}
+.hero-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:12px;}
+.hero-title span{color:var(--orange);}
+.promo-card{background:linear-gradient(135deg,var(--orange),#f0832e);border-radius:var(--r-lg);padding:16px 18px;color:white;position:relative;overflow:hidden;cursor:pointer;}
+.promo-card::after{content:'🏠';position:absolute;right:-10px;bottom:-10px;font-size:70px;opacity:0.15;}
+.promo-badge{display:inline-block;background:rgba(255,255,255,0.2);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:8px;}
+.promo-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:4px;}
+.promo-sub{font-size:12px;opacity:0.85;}
+.promo-btn{display:inline-block;background:white;color:var(--orange);font-size:12px;font-weight:800;padding:7px 16px;border-radius:20px;margin-top:12px;cursor:pointer;}
+
+/* SECTION */
+.sec{padding:16px 16px 0;}
+.sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.sec-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--text);}
+.sec-more{font-size:12px;color:var(--orange);font-weight:700;cursor:pointer;}
+
+/* CATEGORY SCROLL */
+.cat-scroll{display:flex;gap:10px;overflow-x:auto;padding:0 16px 4px;scrollbar-width:none;}
+.cat-scroll::-webkit-scrollbar{display:none;}
+.cat-btn{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;cursor:pointer;transition:all 0.15s;}
+.cat-ico{width:58px;height:58px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;transition:all 0.2s;border:2px solid transparent;}
+.cat-btn.on .cat-ico{border-color:var(--orange);background:var(--orange-l);}
+.cat-label{font-size:11px;font-weight:700;color:var(--muted);white-space:nowrap;}
+.cat-btn.on .cat-label{color:var(--orange);}
+
+/* SERVICE CARDS */
+.svc-list{display:flex;flex-direction:column;gap:10px;padding:0 16px;}
+.svc-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;display:flex;gap:14px;cursor:pointer;transition:all 0.2s;box-shadow:var(--sh);}
+.svc-card:hover{box-shadow:var(--sh-md);}
+.svc-img{width:68px;height:68px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;}
+.svc-info{flex:1;}
+.svc-name{font-weight:800;font-size:14px;color:var(--text);margin-bottom:2px;}
+.svc-desc{font-size:12px;color:var(--muted);line-height:1.4;margin-bottom:8px;}
+.svc-foot{display:flex;justify-content:space-between;align-items:center;}
+.svc-price{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--orange);}
+.svc-rating{font-size:12px;font-weight:600;color:var(--muted);}
+.svc-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;background:var(--orange-l);color:var(--orange);}
+.svc-add-btn{width:32px;height:32px;border-radius:50%;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-size:18px;border:none;cursor:pointer;flex-shrink:0;margin-top:4px;transition:all 0.15s;}
+.svc-add-btn:hover{background:var(--orange-d);}
+
+/* PROVIDER CARDS */
+.provider-scroll{display:flex;gap:12px;overflow-x:auto;padding:0 16px 4px;scrollbar-width:none;}
+.provider-scroll::-webkit-scrollbar{display:none;}
+.prov-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px;width:150px;flex-shrink:0;box-shadow:var(--sh);cursor:pointer;transition:all 0.2s;}
+.prov-card:hover{box-shadow:var(--sh-md);}
+.prov-ava{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:white;margin:0 auto 8px;border:2px solid var(--border);}
+.prov-name{font-size:13px;font-weight:800;text-align:center;color:var(--text);}
+.prov-svc{font-size:11px;color:var(--muted);text-align:center;margin-top:2px;}
+.prov-rating{font-size:12px;font-weight:700;text-align:center;margin-top:5px;color:var(--amber);}
+.prov-badge{font-size:10px;text-align:center;margin-top:4px;color:var(--green);font-weight:600;}
+
+/* BOOKING FLOW */
+.booking-step{padding:20px 16px;}
+.bs-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.bs-back{width:36px;height:36px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;flex-shrink:0;}
+.bs-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;}
+.step-pills{display:flex;gap:6px;margin-bottom:20px;}
+.step-pill{flex:1;height:4px;border-radius:2px;background:var(--border);transition:background 0.3s;}
+.step-pill.done{background:var(--orange);}
+
+/* TIME SLOTS */
+.date-scroll{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:18px;}
+.date-scroll::-webkit-scrollbar{display:none;}
+.date-card{background:var(--bg2);border:1.5px solid var(--border2);border-radius:var(--r);padding:10px 14px;flex-shrink:0;cursor:pointer;text-align:center;transition:all 0.15s;min-width:58px;}
+.date-card.on{background:var(--orange);border-color:var(--orange);}
+.date-day{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--muted);}
+.date-num{font-size:22px;font-weight:800;font-family:'Syne',sans-serif;color:var(--text);}
+.date-card.on .date-day,.date-card.on .date-num{color:white;}
+.slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px;}
+.slot{background:var(--bg2);border:1.5px solid var(--border2);border-radius:var(--r);padding:11px;text-align:center;cursor:pointer;transition:all 0.15s;font-size:13px;font-weight:600;color:var(--muted);}
+.slot.on{background:var(--orange);border-color:var(--orange);color:white;}
+.slot.busy{background:var(--bg3);color:var(--faint);cursor:not-allowed;text-decoration:line-through;}
+
+/* ADDRESS */
+.addr-card{background:var(--bg2);border:1.5px solid var(--border2);border-radius:var(--r-lg);padding:14px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;display:flex;gap:12px;align-items:flex-start;}
+.addr-card.on{border-color:var(--orange);background:var(--orange-l);}
+.addr-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--border2);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;}
+.addr-card.on .addr-radio{border-color:var(--orange);background:var(--orange);}
+.addr-radio-dot{width:8px;height:8px;border-radius:50%;background:white;}
+.addr-name{font-size:13px;font-weight:700;color:var(--text);}
+.addr-text{font-size:12px;color:var(--muted);margin-top:2px;}
+
+/* REVIEW CARD */
+.review-card{background:var(--bg3);border-radius:var(--r);padding:12px;margin-bottom:8px;}
+.rv-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.rv-ava{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+.rv-name{font-size:13px;font-weight:700;}
+.rv-stars{color:var(--amber);font-size:12px;}
+.rv-text{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* BOOKING CARD */
+.booking-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;box-shadow:var(--sh);}
+.booking-item:hover{box-shadow:var(--sh-md);}
+.bi-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.bi-id{font-size:11px;color:var(--faint);font-family:monospace;background:var(--bg3);padding:2px 7px;border-radius:4px;}
+.bi-svc{font-size:15px;font-weight:800;margin-top:3px;}
+.bi-prov{font-size:12px;color:var(--muted);}
+.bi-meta{display:flex;gap:12px;font-size:12px;color:var(--muted);}
+.bi-actions{display:flex;gap:8px;margin-top:12px;}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.b-orange{background:var(--orange-l);color:var(--orange-d);}
+.b-green{background:var(--green-l);color:var(--green);}
+.b-amber{background:var(--amber-l);color:var(--amber);}
+.b-red{background:var(--red-l);color:var(--red);}
+.b-blue{background:var(--blue-l);color:var(--blue);}
+.b-gray{background:var(--bg3);color:var(--muted);}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:13px 22px;border-radius:var(--r);font-size:14px;font-weight:800;cursor:pointer;border:none;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.15s;letter-spacing:0.01em;}
+.btn-orange{background:var(--orange);color:white;}
+.btn-orange:hover{background:var(--orange-d);}
+.btn-ghost{background:var(--bg3);color:var(--muted);border:1.5px solid var(--border2);}
+.btn-ghost:hover{color:var(--text);}
+.btn-wa{background:#25D366;color:white;}
+.btn-full{width:100%;}
+.btn-sm{padding:9px 16px;font-size:13px;border-radius:10px;}
+
+/* STICKY BOTTOM BTN */
+.sticky-btn{position:sticky;bottom:88px;padding:12px 16px;background:var(--bg);border-top:1px solid var(--border);}
+
+/* SUMMARY */
+.order-summary{background:var(--bg3);border-radius:var(--r-lg);padding:16px;margin-bottom:16px;}
+.os-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);}
+.os-row:last-child{border-bottom:none;}
+.os-key{font-size:13px;color:var(--muted);}
+.os-val{font-size:13px;font-weight:700;}
+.os-total{font-size:16px;font-weight:800;color:var(--orange);}
+
+/* FORM */
+.fg{margin-bottom:14px;}
+.fl{display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px;}
+.fi,.fs{width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:var(--r);font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--text);background:var(--bg2);outline:none;transition:border-color 0.15s;}
+.fi:focus,.fs:focus{border-color:var(--orange);}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(19,18,16,0.55);z-index:999;align-items:flex-end;justify-content:center;}
+.modal-bg.open{display:flex;}
+.modal{background:var(--bg2);border-radius:var(--r-xl) var(--r-xl) 0 0;padding:6px 0 0;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;animation:slideUp 0.3s cubic-bezier(0.32,0.72,0,1);}
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.modal-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:10px auto 18px;}
+.modal-inner{padding:0 18px 32px;}
+.modal-title{font-family:'Syne',sans-serif;font-size:21px;font-weight:800;margin-bottom:4px;}
+.modal-sub{font-size:13px;color:var(--muted);margin-bottom:18px;}
+
+/* TOAST */
+.toasts{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:8px;width:90%;max-width:380px;}
+.toast{background:var(--text);color:white;padding:12px 16px;border-radius:var(--r-lg);font-size:13px;font-weight:700;text-align:center;animation:tIn 0.3s ease;box-shadow:var(--sh-lg);}
+.toast.ok{background:var(--green);}
+.toast.wa{background:#075e54;}
+@keyframes tIn{from{transform:translateY(-14px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+
+/* CONFIRM SCREEN */
+.confirm-screen{text-align:center;padding:24px 16px;}
+.cs-icon{width:80px;height:80px;border-radius:50%;background:var(--orange-l);border:3px solid rgba(234,92,30,0.2);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 16px;}
+.cs-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;margin-bottom:6px;}
+.cs-sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.7;}
+
+/* TRACKING */
+.track-map{background:var(--bg3);border-radius:var(--r-lg);height:180px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;position:relative;overflow:hidden;border:1px solid var(--border);}
+.track-map-bg{position:absolute;inset:0;opacity:0.4;background-image:repeating-linear-gradient(0deg,var(--border) 0,var(--border) 1px,transparent 1px,transparent 40px),repeating-linear-gradient(90deg,var(--border) 0,var(--border) 1px,transparent 1px,transparent 40px);}
+.track-pin{font-size:36px;position:relative;z-index:1;animation:bounce 1.5s infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.track-steps{display:flex;flex-direction:column;gap:0;}
+.ts-row{display:flex;gap:14px;align-items:flex-start;}
+.ts-left{display:flex;flex-direction:column;align-items:center;width:28px;flex-shrink:0;}
+.ts-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.ts-line{width:2px;flex:1;min-height:16px;}
+.ts-row:last-child .ts-line{display:none;}
+.ts-body{padding-bottom:16px;flex:1;}
+.ts-title{font-size:13px;font-weight:700;}
+.ts-sub{font-size:12px;color:var(--muted);margin-top:1px;}
+
+/* PROFILE */
+.profile-hero{background:var(--orange);padding:28px 18px;text-align:center;}
+.ph-ava{width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:white;margin:0 auto 10px;border:2px solid rgba(255,255,255,0.3);}
+.ph-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;}
+.ph-meta{font-size:12px;color:rgba(255,255,255,0.65);margin-top:3px;}
+.info-list{background:var(--bg2);border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);}
+.ir{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-bottom:1px solid var(--border);}
+.ir:last-child{border-bottom:none;}
+.ik{font-size:13px;color:var(--muted);}
+.iv{font-size:13px;font-weight:700;}
+
+/* STARS */
+.stars-row{display:flex;gap:6px;margin-bottom:14px;}
+.star{font-size:32px;cursor:pointer;transition:transform 0.1s;}
+.star:hover{transform:scale(1.2);}
+</style>
+</head>
+<body>
+<div class="toasts" id="toasts"></div>
+
+<!-- MODAL: Service Detail + Book -->
+<div class="modal-bg" id="svcModal">
+<div class="modal">
+  <div class="modal-handle"></div>
+  <div class="modal-inner" id="svcModalContent"></div>
+</div>
+</div>
+
+<!-- MODAL: Provider Profile -->
+<div class="modal-bg" id="provModal">
+<div class="modal">
+  <div class="modal-handle"></div>
+  <div class="modal-inner" id="provModalContent"></div>
+</div>
+</div>
+
+<!-- MODAL: Rate & Review -->
+<div class="modal-bg" id="reviewModal">
+<div class="modal">
+  <div class="modal-handle"></div>
+  <div class="modal-inner">
+    <div class="modal-title">Rate Your Service</div>
+    <div class="modal-sub">How was the service quality?</div>
+    <div class="stars-row" id="ratingStars">
+      <span class="star" onclick="rateStar(1)">⭐</span><span class="star" onclick="rateStar(2)">⭐</span>
+      <span class="star" onclick="rateStar(3)">⭐</span><span class="star" onclick="rateStar(4)">⭐</span><span class="star" onclick="rateStar(5)">⭐</span>
+    </div>
+    <div class="fg"><label class="fl">Your Review</label><textarea style="width:100%;padding:12px;border:1.5px solid var(--border2);border-radius:var(--r);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;resize:none;min-height:90px;outline:none;" placeholder="Tell us about your experience..."></textarea></div>
+    <button class="btn btn-orange btn-full" onclick="submitReview()">Submit Review</button>
+  </div>
+</div>
+</div>
+
+<div class="app">
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-top">
+      <div class="hdr-brand">
+        <div class="hdr-logo">🔧</div>
+        <div><div class="hdr-name">FixIt UAE</div><div class="hdr-loc">📍 Dubai Marina, Dubai</div></div>
+      </div>
+      <div class="hdr-icons">
+        <div class="hdr-icon" onclick="showPg('bookings')">📅<div class="hdr-badge">2</div></div>
+        <div class="hdr-icon" onclick="toast('Opening notifications...','')">🔔</div>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <div class="search-box">
+        <span class="search-ico">🔍</span>
+        <input class="search-input" placeholder="Search services — AC, plumber, cleaning..."/>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div class="page on" id="pg-home">
+    <div class="hero">
+      <div class="hero-greeting">Good morning,</div>
+      <div class="hero-title">What service do you<br/>need <span>today?</span></div>
+      <div class="promo-card" onclick="showPg('services')">
+        <div class="promo-badge">🔥 This Week's Deal</div>
+        <div class="promo-title">AC Service & Cleaning</div>
+        <div class="promo-sub">Starting from AED 149 · Same-day available</div>
+        <div class="promo-btn">Book Now →</div>
+      </div>
+    </div>
+
+    <div style="height:14px;"></div>
+    <div class="cat-scroll" id="homeCats"></div>
+    <div style="height:16px;"></div>
+
+    <div class="sec">
+      <div class="sec-head"><div class="sec-title">Popular Services</div><div class="sec-more" onclick="showPg('services')">See all →</div></div>
+    </div>
+    <div class="svc-list" id="homeSvcs"></div>
+
+    <div class="sec" style="margin-top:20px;">
+      <div class="sec-head"><div class="sec-title">Top Rated Providers</div><div class="sec-more" onclick="showPg('services')">View all →</div></div>
+    </div>
+    <div class="provider-scroll" id="homeProviders"></div>
+
+    <div class="sec" style="margin-top:20px;padding-bottom:10px;">
+      <div style="background:var(--text);border-radius:var(--r-xl);padding:22px 18px;">
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:white;margin-bottom:8px;">🛡️ Why FixIt UAE?</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,0.7);"><span>✅</span>Verified & background-checked professionals</div>
+          <div style="display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,0.7);"><span>⚡</span>Same-day and emergency service available</div>
+          <div style="display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,0.7);"><span>💰</span>Transparent pricing — no hidden charges</div>
+          <div style="display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,0.7);"><span>🔄</span>Free re-service if not satisfied</div>
+          <div style="display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,0.7);"><span>💬</span>Arabic & English support via WhatsApp</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="page" id="pg-services">
+    <div style="padding:16px 16px 10px;display:flex;align-items:center;gap:10px;">
+      <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;">All Services</div>
+    </div>
+    <div class="cat-scroll" style="margin-bottom:14px;" id="svcCats"></div>
+    <div class="svc-list" id="allSvcs"></div>
+  </div>
+
+  <!-- MY BOOKINGS -->
+  <div class="page" id="pg-bookings">
+    <div style="padding:16px 16px 10px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;">My Bookings</div>
+      <button class="btn btn-orange btn-sm" onclick="showPg('services')">+ Book</button>
+    </div>
+    <div style="display:flex;gap:6px;padding:0 16px 12px;overflow-x:auto;">
+      <button class="badge b-orange" style="cursor:pointer;" onclick="filtBookings('all',this)">All</button>
+      <button class="badge b-blue" style="cursor:pointer;background:var(--bg3);color:var(--muted);" onclick="filtBookings('upcoming',this)">Upcoming</button>
+      <button class="badge b-orange" style="cursor:pointer;background:var(--bg3);color:var(--muted);" onclick="filtBookings('active',this)">Active</button>
+      <button class="badge b-green" style="cursor:pointer;background:var(--bg3);color:var(--muted);" onclick="filtBookings('completed',this)">Completed</button>
+    </div>
+    <div style="padding:0 16px;" id="bookingsList"></div>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="page" id="pg-profile">
+    <div class="profile-hero">
+      <div class="ph-ava">MA</div>
+      <div class="ph-name">Mohammed Al Zaabi</div>
+      <div class="ph-meta">Dubai Marina · Member since 2023</div>
+    </div>
+    <div style="padding:16px;">
+      <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:12px;">Account Details</div>
+      <div class="info-list" style="margin-bottom:16px;">
+        <div class="ir"><span class="ik">Phone</span><span class="iv">+971 50 123 4567</span></div>
+        <div class="ir"><span class="ik">Email</span><span class="iv">m.zaabi@email.com</span></div>
+        <div class="ir"><span class="ik">Area</span><span class="iv">Dubai Marina</span></div>
+        <div class="ir"><span class="ik">Total Bookings</span><span class="iv">12</span></div>
+        <div class="ir"><span class="ik">Total Spent</span><span class="iv">AED 2,340</span></div>
+      </div>
+      <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:12px;">Saved Addresses</div>
+      <div id="savedAddresses"></div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;">
+        <button class="btn btn-wa btn-full" onclick="toast('Opening WhatsApp support...','wa')">💬 WhatsApp Support</button>
+        <button class="btn btn-ghost btn-full btn-sm" onclick="toast('Signed out','')">Sign Out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOOKING FLOW (INLINE PAGE) -->
+  <div class="page" id="pg-booking">
+    <div class="booking-step" id="bookingContent"></div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bnav">
+    <div class="bni on" id="nav-home" onclick="showPg('home',this)"><div class="bni-ico">🏠</div>Home</div>
+    <div class="bni" id="nav-services" onclick="showPg('services',this)"><div class="bni-ico">🔧</div>Services</div>
+    <div class="bni" id="nav-bookings" onclick="showPg('bookings',this)">
+      <div class="bni-wrap"><div class="bni-ico">📅</div><span class="bni-dot"></span></div>Bookings
+    </div>
+    <div class="bni" id="nav-profile" onclick="showPg('profile',this)"><div class="bni-ico">👤</div>Profile</div>
+  </div>
+</div>
+
+<script>
+// ─── DATA ──────────────────────────────────────────────────────────────────
+const cats=[
+  {id:'ac',ico:'❄️',label:'AC Service',bg:'#eff6ff'},
+  {id:'cleaning',ico:'🧹',label:'Cleaning',bg:'#f0fdf4'},
+  {id:'plumbing',ico:'🔧',label:'Plumbing',bg:'#fff7ed'},
+  {id:'electrical',ico:'⚡',label:'Electrical',bg:'#fefce8'},
+  {id:'painting',ico:'🎨',label:'Painting',bg:'#fdf4ff'},
+  {id:'carpentry',ico:'🪚',label:'Carpentry',bg:'#fff1f2'},
+  {id:'pest',ico:'🐛',label:'Pest Control',bg:'#f0fdf4'},
+  {id:'handyman',ico:'🪛',label:'Handyman',bg:'#fff4ef'},
+  {id:'moving',ico:'📦',label:'Moving',bg:'#eff6ff'},
+  {id:'laundry',ico:'👕',label:'Laundry',bg:'#f5f3ff'},
+];
+const services=[
+  {id:1,cat:'ac',ico:'❄️',name:'AC Service & Cleaning',desc:'Full AC cleaning, filter wash, gas check & performance test',price:149,duration:'2–3 hrs',rating:4.9,reviews:842,badge:'Best Seller',bg:'#eff6ff'},
+  {id:2,cat:'ac',ico:'🌡️',name:'AC Gas Refilling',desc:'Refrigerant refilling for all AC types — split, central, window',price:199,duration:'1–2 hrs',rating:4.8,reviews:421,badge:'Popular',bg:'#eff6ff'},
+  {id:3,cat:'cleaning',ico:'🏠',name:'Deep Home Cleaning',desc:'Full apartment/villa deep cleaning — kitchen, bathrooms, all rooms',price:299,duration:'4–6 hrs',rating:4.9,reviews:1240,badge:'Top Rated',bg:'#f0fdf4'},
+  {id:4,cat:'cleaning',ico:'🛋️',name:'Sofa & Carpet Cleaning',desc:'Steam cleaning for sofas, carpets, and mattresses',price:189,duration:'2–3 hrs',rating:4.7,reviews:563,badge:'',bg:'#f0fdf4'},
+  {id:5,cat:'plumbing',ico:'🚿',name:'Plumbing Repair',desc:'Leaks, blockages, pipe repair, tap replacement — all plumbing needs',price:120,duration:'1–2 hrs',rating:4.8,reviews:328,badge:'Same Day',bg:'#fff7ed'},
+  {id:6,cat:'electrical',ico:'⚡',name:'Electrical Work',desc:'Wiring, switches, sockets, MCB, appliance installation',price:130,duration:'1–2 hrs',rating:4.8,reviews:291,badge:'Same Day',bg:'#fefce8'},
+  {id:7,cat:'painting',ico:'🎨',name:'Home Painting',desc:'Professional interior/exterior painting, wall texture & putty',price:499,duration:'1–2 days',rating:4.7,reviews:184,badge:'',bg:'#fdf4ff'},
+  {id:8,cat:'pest',ico:'🐛',name:'Pest Control',desc:'Cockroach, ant, bedbugs, mosquito & termite treatment',price:199,duration:'2–3 hrs',rating:4.8,reviews:412,badge:'Guaranteed',bg:'#f0fdf4'},
+  {id:9,cat:'handyman',ico:'🪛',name:'Handyman Services',desc:'TV mounting, furniture assembly, small repairs — anything around the home',price:99,duration:'1–2 hrs',rating:4.9,reviews:762,badge:'Quick Fix',bg:'#fff4ef'},
+  {id:10,cat:'moving',ico:'📦',name:'Home Moving & Packing',desc:'Professional movers with packing materials — Dubai to Dubai',price:599,duration:'4–8 hrs',rating:4.7,reviews:203,badge:'',bg:'#eff6ff'},
+];
+const providers=[
+  {name:'Ahmed Yusuf',svc:'AC Specialist',rating:'4.9★',jobs:342,avail:'Available now',color:'#0891b2',initials:'AY'},
+  {name:'Priya Kumar',svc:'Home Cleaning',rating:'5.0★',jobs:521,avail:'Available now',color:'#16a34a',initials:'PK'},
+  {name:'Khalid Salim',svc:'Plumbing & Elec.',rating:'4.8★',jobs:218,avail:'In 1 hour',color:'#d97706',initials:'KS'},
+  {name:'Santos Cruz',svc:'Handyman',rating:'4.9★',jobs:389,avail:'Available now',color:'#7c3aed',initials:'SC'},
+  {name:'Ravi Sharma',svc:'Pest Control',rating:'4.8★',jobs:276,avail:'Tomorrow',color:'#dc2626',initials:'RS'},
+];
+const bookings=[
+  {id:'FX-089',svc:'AC Service & Cleaning',provider:'Ahmed Yusuf',date:'Today · 3:00 PM',amount:149,status:'active',ico:'❄️'},
+  {id:'FX-088',svc:'Deep Home Cleaning',provider:'Priya Kumar',date:'Tomorrow · 10:00 AM',amount:299,status:'upcoming',ico:'🏠'},
+  {id:'FX-075',svc:'Plumbing Repair',provider:'Khalid Salim',date:'Last week',amount:120,status:'completed',ico:'🚿'},
+  {id:'FX-062',svc:'Electrical Work',provider:'Khalid Salim',date:'2 weeks ago',amount:130,status:'completed',ico:'⚡'},
+];
+const addresses=[
+  {label:'🏠 Home',text:'Apt 2304, Marina Towers, Dubai Marina'},
+  {label:'💼 Office',text:'Floor 12, JLT Cluster G, Dubai'},
+];
+const dates=[];
+const now=new Date();
+for(let i=0;i<7;i++){const d=new Date(now);d.setDate(now.getDate()+i);dates.push(d);}
+const slots=['08:00 AM','09:00 AM','10:00 AM','11:00 AM','12:00 PM','02:00 PM','03:00 PM','04:00 PM','05:00 PM','06:00 PM','07:00 PM','08:00 PM'];
+const busy=['10:00 AM','01:00 PM','04:00 PM'];
+
+let activeCat='all';let selDate=0;let selSlot=null;let selAddr=0;let selSvc=null;let bookFilt='all';let starRating=0;
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function renderCats(elId,withAll=false){
+  const allCats=withAll?[{id:'all',ico:'✨',label:'All',bg:'#fff4ef'},...cats]:cats;
+  document.getElementById(elId).innerHTML=allCats.map(c=>`
+    <div class="cat-btn ${c.id===activeCat?'on':''}" onclick="setCat('${c.id}','${elId}')">
+      <div class="cat-ico" style="background:${c.bg};">${c.ico}</div>
+      <div class="cat-label">${c.label}</div>
+    </div>`).join('');
+}
+function setCat(id,elId){
+  activeCat=id;
+  renderCats(elId,elId==='svcCats');
+  if(elId==='svcCats')renderSvcs('allSvcs',id);
+}
+function renderSvcs(elId,cat='all'){
+  const filtered=cat==='all'?services:services.filter(s=>s.cat===cat);
+  document.getElementById(elId).innerHTML=filtered.slice(0,elId==='homeSvcs'?4:999).map(s=>`
+    <div class="svc-card" onclick="openSvcModal(${s.id})">
+      <div class="svc-img" style="background:${s.bg};">${s.ico}</div>
+      <div class="svc-info">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div class="svc-name">${s.name}</div>
+          ${s.badge?`<span class="svc-badge">${s.badge}</span>`:''}
+        </div>
+        <div class="svc-desc">${s.desc}</div>
+        <div class="svc-foot">
+          <div class="svc-price">AED ${s.price}</div>
+          <div class="svc-rating">⭐ ${s.rating} (${s.reviews})</div>
+        </div>
+      </div>
+      <button class="svc-add-btn" onclick="event.stopPropagation();startBooking(${s.id})">+</button>
+    </div>`).join('');
+}
+function renderProviders(){
+  document.getElementById('homeProviders').innerHTML=providers.map(p=>`
+    <div class="prov-card" onclick="openProvModal('${p.name}')">
+      <div class="prov-ava" style="background:${p.color};">${p.initials}</div>
+      <div class="prov-name">${p.name}</div>
+      <div class="prov-svc">${p.svc}</div>
+      <div class="prov-rating">${p.rating} · ${p.jobs} jobs</div>
+      <div class="prov-badge">🟢 ${p.avail}</div>
+    </div>`).join('');
+}
+function renderBookings(){
+  const filt=bookFilt==='all'?bookings:bookings.filter(b=>b.status===bookFilt);
+  const stMap={active:'b-orange',upcoming:'b-blue',completed:'b-green',cancelled:'b-gray'};
+  document.getElementById('bookingsList').innerHTML=filt.length?filt.map(b=>`
+    <div class="booking-item" onclick="openBookingDetail('${b.id}')">
+      <div class="bi-top">
+        <div><span class="bi-id">${b.id}</span><div class="bi-svc">${b.ico} ${b.svc}</div><div class="bi-prov">with ${b.provider}</div></div>
+        <span class="badge ${stMap[b.status]}">${b.status}</span>
+      </div>
+      <div class="bi-meta"><span>📅 ${b.date}</span><span>💰 AED ${b.amount}</span></div>
+      <div class="bi-actions">
+        ${b.status==='active'?`<button class="btn btn-orange btn-sm" onclick="event.stopPropagation();openTracker()">📍 Track</button>`:''}
+        ${b.status==='upcoming'?`<button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();toast('Cancelling...','')">Cancel</button>`:''}
+        ${b.status==='completed'?`<button class="btn btn-orange btn-sm" onclick="event.stopPropagation();openM('reviewModal')">⭐ Rate</button><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();toast('Rebooking service...','ok')">Rebook</button>`:''}
+        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();toast('Opening WhatsApp...','wa')">💬</button>
+      </div>
+    </div>`).join(''):`<div style="text-align:center;padding:40px;color:var(--muted);"><div style="font-size:40px;margin-bottom:12px;">📭</div><div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:6px;">No bookings yet</div><button class="btn btn-orange btn-sm" onclick="showPg('services')">Book a Service</button></div>`;
+}
+function renderProfile(){
+  document.getElementById('savedAddresses').innerHTML=addresses.map((a,i)=>`
+    <div class="addr-card ${i===0?'on':''}" onclick="this.classList.toggle('on')">
+      <div class="addr-radio">${i===0?'<div class="addr-radio-dot"></div>':''}</div>
+      <div><div class="addr-name">${a.label}</div><div class="addr-text">${a.text}</div></div>
+    </div>`).join('');
+}
+
+// ─── BOOKING FLOW ─────────────────────────────────────────────────────────────
+function startBooking(svcId){
+  selSvc=services.find(s=>s.id===svcId);
+  selDate=0;selSlot=null;selAddr=0;
+  showBookingStep(1);
+  showPg('booking');
+}
+function showBookingStep(step){
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let html=`<div class="bs-header"><div class="bs-back" onclick="showPg('services')">←</div><div class="bs-title">${step===1?'Choose Date & Time':step===2?'Select Address':'Confirm Booking'}</div></div>`;
+  html+=`<div class="step-pills"><div class="step-pill ${step>=1?'done':''}"></div><div class="step-pill ${step>=2?'done':''}"></div><div class="step-pill ${step>=3?'done':''}"></div></div>`;
+
+  if(step===1){
+    html+=`<div style="font-size:14px;font-weight:700;margin-bottom:12px;">📅 Select Date</div>`;
+    html+=`<div class="date-scroll">`+dates.map((d,i)=>`<div class="date-card ${selDate===i?'on':''}" onclick="selDate=${i};showBookingStep(1)"><div class="date-day">${i===0?'Today':i===1?'Tomorrow':days[d.getDay()]}</div><div class="date-num">${d.getDate()}</div></div>`).join('')+'</div>';
+    html+=`<div style="font-size:14px;font-weight:700;margin-bottom:12px;">🕐 Select Time</div>`;
+    html+=`<div class="slots-grid">`+slots.map(t=>`<div class="slot ${busy.includes(t)?'busy':''} ${selSlot===t?'on':''}" onclick="${busy.includes(t)?'':('selSlot="'+t+'";showBookingStep(1)')}">${t}</div>`).join('')+'</div>';
+    html+=`<div class="sticky-btn"><button class="btn btn-orange btn-full" onclick="${selSlot?'showBookingStep(2)':'toast(\'Please select a time slot\',\'\')'}">Continue →</button></div>`;
+  } else if(step===2){
+    html+=`<div style="font-size:14px;font-weight:700;margin-bottom:12px;">📍 Delivery Address</div>`;
+    html+=addresses.map((a,i)=>`<div class="addr-card ${selAddr===i?'on':''}" onclick="selAddr=${i};showBookingStep(2)"><div class="addr-radio">${selAddr===i?'<div class="addr-radio-dot"></div>':''}</div><div><div class="addr-name">${a.label}</div><div class="addr-text">${a.text}</div></div></div>`).join('');
+    html+=`<div class="addr-card" onclick="toast('Adding new address...','ok')"><div style="font-size:20px;">➕</div><div><div class="addr-name">Add New Address</div><div class="addr-text">Enter a new location</div></div></div>`;
+    html+=`<div class="sticky-btn"><button class="btn btn-orange btn-full" onclick="showBookingStep(3)">Continue →</button></div>`;
+  } else if(step===3){
+    const dateStr=selDate===0?'Today':selDate===1?'Tomorrow':dates[selDate].toLocaleDateString('en',{weekday:'short',month:'short',day:'numeric'});
+    html+=`<div class="order-summary">
+      <div class="os-row"><span class="os-key">Service</span><span class="os-val">${selSvc.ico} ${selSvc.name}</span></div>
+      <div class="os-row"><span class="os-key">Date & Time</span><span class="os-val">${dateStr} · ${selSlot}</span></div>
+      <div class="os-row"><span class="os-key">Address</span><span class="os-val">${addresses[selAddr].label}</span></div>
+      <div class="os-row"><span class="os-key">Service Fee</span><span class="os-val">AED ${selSvc.price}</span></div>
+      <div class="os-row"><span class="os-key">Platform Fee</span><span class="os-val">AED 10</span></div>
+      <div class="os-row"><span class="os-key" style="font-weight:800;color:var(--text);">Total</span><span class="os-val os-total">AED ${selSvc.price+10}</span></div>
+    </div>`;
+    html+=`<div class="fg"><label class="fl">Payment Method</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <label style="display:flex;align-items:center;gap:8px;padding:12px;border:1.5px solid var(--orange);border-radius:var(--r);cursor:pointer;background:var(--orange-l);">
+          <input type="radio" name="pay" checked style="accent-color:var(--orange);"/> <span style="font-size:13px;font-weight:700;">💳 Card</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;padding:12px;border:1.5px solid var(--border2);border-radius:var(--r);cursor:pointer;">
+          <input type="radio" name="pay" style="accent-color:var(--orange);"/> <span style="font-size:13px;font-weight:700;">💵 Cash</span>
+        </label>
+      </div>
+    </div>`;
+    html+=`<div style="display:flex;gap:8px;margin-bottom:8px;"><button class="btn btn-ghost btn-sm" onclick="showBookingStep(2)" style="flex:1;">← Back</button><button class="btn btn-orange" onclick="confirmBooking()" style="flex:2;">✓ Confirm Booking</button></div>`;
+  }
+  document.getElementById('bookingContent').innerHTML=html;
+}
+
+function confirmBooking(){
+  const newId='FX-0'+(90+bookings.length);
+  const dateStr=selDate===0?'Today':selDate===1?'Tomorrow':dates[selDate].toLocaleDateString('en',{weekday:'short',month:'short',day:'numeric'});
+  bookings.unshift({id:newId,svc:selSvc.name,provider:providers[Math.floor(Math.random()*3)].name,date:dateStr+' · '+selSlot,amount:selSvc.price+10,status:'upcoming',ico:selSvc.ico});
+  showConfirmScreen();
+}
+
+function showConfirmScreen(){
+  const dateStr=selDate===0?'Today':selDate===1?'Tomorrow':dates[selDate].toLocaleDateString('en',{weekday:'short',month:'short',day:'numeric'});
+  document.getElementById('bookingContent').innerHTML=`
+    <div class="confirm-screen">
+      <div class="cs-icon">🎉</div>
+      <div class="cs-title">Booking Confirmed!</div>
+      <div class="cs-sub">Your <strong>${selSvc.name}</strong> has been booked for <strong>${dateStr} at ${selSlot}</strong>.<br/>A WhatsApp confirmation will be sent shortly.</div>
+      <div class="order-summary" style="text-align:left;">
+        <div class="os-row"><span class="os-key">Booking ID</span><span class="os-val" style="font-family:monospace;">FX-0${90+bookings.length-1}</span></div>
+        <div class="os-row"><span class="os-key">Provider</span><span class="os-val">${providers[0].name}</span></div>
+        <div class="os-row"><span class="os-key">Total Paid</span><span class="os-val os-total">AED ${selSvc.price+10}</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <button class="btn btn-wa btn-full" onclick="toast('Opening WhatsApp confirmation...','wa')">💬 View on WhatsApp</button>
+        <button class="btn btn-orange btn-full" onclick="showPg('bookings')">View My Bookings</button>
+        <button class="btn btn-ghost btn-full btn-sm" onclick="showPg('home')">Back to Home</button>
+      </div>
+    </div>`;
+}
+
+function openTracker(){
+  document.getElementById('bookingContent').innerHTML=`
+    <div class="booking-step">
+      <div class="bs-header"><div class="bs-back" onclick="showPg('bookings')">←</div><div class="bs-title">Live Tracking</div></div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--orange);">🟢 Ahmed Yusuf is on the way!</div>
+      <div class="track-map"><div class="track-map-bg"></div><div class="track-pin">🔧</div></div>
+      <div style="background:var(--orange-l);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:16px;display:flex;gap:12px;align-items:center;">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex-shrink:0;">AY</div>
+        <div style="flex:1;"><div style="font-size:14px;font-weight:800;">Ahmed Yusuf</div><div style="font-size:12px;color:var(--muted);">AC Specialist · ⭐ 4.9 · 342 jobs</div></div>
+        <button class="btn btn-wa btn-sm" onclick="toast('Calling Ahmed...','wa')">📞 Call</button>
+      </div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:12px;">Service Status</div>
+      <div class="track-steps">
+        <div class="ts-row"><div class="ts-left"><div class="ts-dot" style="background:var(--green);"></div><div class="ts-line" style="background:var(--green);"></div></div><div class="ts-body"><div class="ts-title">Booking Confirmed</div><div class="ts-sub">Today · 2:45 PM</div></div></div>
+        <div class="ts-row"><div class="ts-left"><div class="ts-dot" style="background:var(--green);"></div><div class="ts-line" style="background:var(--green);"></div></div><div class="ts-body"><div class="ts-title">Provider Assigned</div><div class="ts-sub">Ahmed Yusuf confirmed · 2:48 PM</div></div></div>
+        <div class="ts-row"><div class="ts-left"><div class="ts-dot" style="background:var(--orange);box-shadow:0 0 0 4px var(--orange-l);"></div><div class="ts-line"></div></div><div class="ts-body"><div class="ts-title" style="color:var(--orange);">On The Way</div><div class="ts-sub">ETA: 12 minutes away</div></div></div>
+        <div class="ts-row"><div class="ts-left"><div class="ts-dot" style="background:var(--faint);"></div><div class="ts-line"></div></div><div class="ts-body"><div class="ts-title" style="color:var(--muted);">Service Started</div><div class="ts-sub">Pending</div></div></div>
+        <div class="ts-row"><div class="ts-left"><div class="ts-dot" style="background:var(--faint);"></div></div><div class="ts-body"><div class="ts-title" style="color:var(--muted);">Completed</div><div class="ts-sub">Pending</div></div></div>
+      </div>
+    </div>`;
+  showPg('booking');
+}
+
+// ─── MODALS ──────────────────────────────────────────────────────────────────
+function openSvcModal(id){
+  const s=services.find(x=>x.id===id);if(!s)return;
+  const revs=[
+    {name:'Sara M.',color:'#be185d',text:'Excellent work! The AC is running perfectly now. Very professional.',stars:'⭐⭐⭐⭐⭐'},
+    {name:'Khalid R.',color:'#1d4ed8',text:'On time, clean, and efficient. Will definitely book again.',stars:'⭐⭐⭐⭐⭐'},
+    {name:'Priya N.',color:'#16a34a',text:'Great service at a fair price. Highly recommend.',stars:'⭐⭐⭐⭐'},
+  ];
+  document.getElementById('svcModalContent').innerHTML=`
+    <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;">
+      <div style="width:64px;height:64px;border-radius:16px;background:${s.bg};display:flex;align-items:center;justify-content:center;font-size:34px;flex-shrink:0;">${s.ico}</div>
+      <div><div class="modal-title" style="font-size:19px;margin-bottom:3px;">${s.name}</div><div style="font-size:13px;color:var(--muted);">⭐ ${s.rating} · ${s.reviews} reviews · ⏱ ${s.duration}</div></div>
+    </div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;">${s.desc}</div>
+    <div style="background:var(--orange-l);border-radius:var(--r);padding:14px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;">
+      <div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;">Starting From</div><div style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--orange);">AED ${s.price}</div></div>
+      ${s.badge?`<span class="badge b-orange">${s.badge}</span>`:''}
+    </div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:10px;">What's Included</div>
+    <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;">
+      ${['Professional certified technician','All materials and cleaning supplies','90-day service warranty','Before & after service photos','WhatsApp updates throughout'].map(i=>`<div style="display:flex;gap:8px;font-size:13px;color:var(--muted);"><span style="color:var(--green);">✓</span>${i}</div>`).join('')}
+    </div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Customer Reviews</div>
+    ${revs.map(r=>`<div class="review-card"><div class="rv-head"><div class="rv-ava" style="background:${r.color};">${r.name[0]}</div><div><div class="rv-name">${r.name}</div><div class="rv-stars">${r.stars}</div></div></div><div class="rv-text">${r.text}</div></div>`).join('')}
+    <div style="margin-top:16px;display:flex;flex-direction:column;gap:8px;">
+      <button class="btn btn-orange btn-full" onclick="closeM('svcModal');startBooking(${s.id})">Book Now — AED ${s.price}</button>
+      <button class="btn btn-ghost btn-full btn-sm" onclick="closeM('svcModal')">Close</button>
+    </div>`;
+  openM('svcModal');
+}
+
+function openProvModal(name){
+  const p=providers.find(x=>x.name===name)||providers[0];
+  document.getElementById('provModalContent').innerHTML=`
+    <div style="text-align:center;margin-bottom:18px;">
+      <div style="width:72px;height:72px;border-radius:50%;background:${p.color};display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:white;margin:0 auto 10px;">${p.initials}</div>
+      <div class="modal-title">${p.name}</div>
+      <div style="font-size:13px;color:var(--muted);">${p.svc}</div>
+      <div style="font-size:14px;font-weight:800;color:var(--amber);margin-top:4px;">${p.rating} · ${p.jobs} completed jobs</div>
+      <span style="display:inline-block;background:var(--green-l);color:var(--green);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-top:6px;">🟢 ${p.avail}</span>
+    </div>
+    <div style="background:var(--bg3);border-radius:var(--r-lg);padding:14px;margin-bottom:16px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;">
+        <div><div style="font-size:20px;font-weight:800;">${p.jobs}</div><div style="font-size:11px;color:var(--muted);">Jobs Done</div></div>
+        <div><div style="font-size:20px;font-weight:800;">3yr</div><div style="font-size:11px;color:var(--muted);">Experience</div></div>
+        <div><div style="font-size:20px;font-weight:800;">100%</div><div style="font-size:11px;color:var(--muted);">Verified</div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;">
+      ${['ID & background verified','MOHRE compliant','Fully insured','English & Arabic speaker'].map(i=>`<div style="display:flex;gap:8px;font-size:13px;color:var(--muted);"><span style="color:var(--green);">✓</span>${i}</div>`).join('')}
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-orange" style="flex:2;" onclick="closeM('provModal');showPg('services')">Book ${p.name.split(' ')[0]}</button>
+      <button class="btn btn-wa" style="flex:1;" onclick="toast('Opening WhatsApp...','wa')">💬</button>
+    </div>`;
+  openM('provModal');
+}
+
+function openBookingDetail(id){
+  const b=bookings.find(x=>x.id===id);if(!b)return;
+  toast('Booking '+id+': '+b.svc,'ok');
+}
+
+function filtBookings(f,btn){bookFilt=f;renderBookings();}
+function submitReview(){closeM('reviewModal');toast('⭐ Thank you for your '+starRating+'-star review!','ok');}
+function rateStar(n){starRating=n;document.querySelectorAll('.star').forEach((s,i)=>s.textContent=i<n?'⭐':'☆');}
+
+// ─── NAV ──────────────────────────────────────────────────────────────────────
+function showPg(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.bni').forEach(n=>n.classList.remove('on'));
+  document.getElementById('pg-'+id).classList.add('on');
+  const ne=el||document.getElementById('nav-'+id);
+  if(ne&&ne.classList)ne.classList.add('on');
+  if(id==='services'){activeCat='all';renderCats('svcCats',true);renderSvcs('allSvcs');}
+  if(id==='bookings')renderBookings();
+  if(id==='profile')renderProfile();
+}
+function openM(id){document.getElementById(id).classList.add('open');}
+function closeM(id){document.getElementById(id).classList.remove('open');}
+function toast(msg,type){
+  const wrap=document.getElementById('toasts');const t=document.createElement('div');
+  t.className='toast'+(type?' '+type:'');t.textContent=msg;wrap.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(-12px)';t.style.transition='all 0.3s';setTimeout(()=>t.remove(),300);},3500);
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+renderCats('homeCats');renderSvcs('homeSvcs');renderProviders();
+</script>
+</body>
+</html>
